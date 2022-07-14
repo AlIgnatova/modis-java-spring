@@ -81,4 +81,8 @@ public class Person {
         sb.append('}');
         return sb.toString();
     }
+
+    public String talk(){
+        return this.toString();
+    }
 }
