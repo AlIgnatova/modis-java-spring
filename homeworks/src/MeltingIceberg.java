@@ -1,19 +1,25 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class MeltingIceberg {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
+    private static Scanner scanner = null;
+
+    public static int countingTime(Scanner scanner) throws FileNotFoundException {
+        scanner = new Scanner(new FileInputStream("D:\\ModisJavaAcademy\\git\\modis-java-spring\\homeworks\\src\\iceberg.txt"));
         int n = Integer.parseInt(scanner.nextLine());
-
         char[][] matrix = new char[n][n];
-
         long icecubesCount = 0;
-        for (int row = 0; row < n; row++) {
-            String line = scanner.nextLine();
-            matrix[row] = line.toCharArray();
-            char icecube = '*';
-            icecubesCount += line.chars().filter(ch -> ch == icecube).count();
+
+        while (scanner.hasNextLine()){
+
+            for (int row = 0; row < n; row++) {
+                String line = scanner.nextLine();
+                matrix[row] = line.toCharArray();
+                char icecube = '*';
+                icecubesCount += line.chars().filter(ch -> ch == icecube).count();
+            }
         }
 
         int hours = 0;
@@ -39,17 +45,14 @@ public class MeltingIceberg {
                     }
                 }
             }
-                if (somethingMelted) {
-                    hours++;
-                }
-                updateMyMatrix(matrix, nextMatrix);
+            if (somethingMelted) {
+                hours++;
+            }
+            updateMyMatrix(matrix, nextMatrix);
         }
 
-        System.out.println(hours);
-
-
+        return hours;
     }
-
     private static void updateMyMatrix(char[][] matrix, char[][] nextMatrix) {
         for (int row = 0; row < nextMatrix.length; row++) {
             for (int col = 0; col < nextMatrix[row].length; col++) {
@@ -77,5 +80,12 @@ public class MeltingIceberg {
         }
         return false;
     }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        System.out.println(countingTime(scanner));
+
+    }
+
+
 }
 
